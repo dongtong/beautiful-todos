@@ -21,6 +21,6 @@ model Todo {
   status        TodoStatus
   createdAt     String
   lastUpdatedAt String
-  completedAt   String
+  completedAt   String?
   creator       String?
 }
