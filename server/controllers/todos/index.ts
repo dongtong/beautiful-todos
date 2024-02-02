@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { IApiRes } from "interfaces/common";
 import { ITodo } from "interfaces/todo";
 import Todo from "models/todo";
 
@@ -13,11 +14,15 @@ router.get("/", (req, res) => {});
 router.post("/", async (req, res) => {
   const { title }: ITodo = req.body as ITodo;
   const todo = new Todo(title);
-  const result = await todo.save();
-  res.send({
-    statusCode: "OK",
-    message: "Created todo successfully",
-  });
+  const result: IApiRes = await todo.save();
+  if (result.statusCode === "OK") {
+    return res.send({
+      ...result,
+      message: "Created todo successfully",
+    });
+  }
+  // error situation
+  return result;
 });
 
 // Update todo
