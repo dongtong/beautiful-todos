@@ -15,7 +15,7 @@ class Todo {
     this.id = uuid();
     this.status = "New";
     // format current datetime to string
-    const currDateTime = dayjs().format("YYYY-mm-dd HH:MM:SS");
+    const currDateTime = dayjs().format("YYYY-MM-DD HH:mm:ss");
     // "YYYY-mm-dd HH:MM:SS"
     this.createdAt = currDateTime;
     this.lastUpdatedAt = currDateTime;
@@ -25,11 +25,15 @@ class Todo {
   }
 
   // Persist in database
-  save(): Todo {}
+  save(): Todo {
+    return this;
+  }
 
   update(status: string) {}
 
-  public static find(id: string): Todo {}
+  public static find(id: string): Todo | null {
+    return null;
+  }
 
   public static clearCompleted() {}
 }

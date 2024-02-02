@@ -10,11 +10,11 @@
  * creator: [string][optional] system could persist todo's creator name if necessary
  */
 export interface ITodo {
-  id: string;
+  id?: string;
   title: string;
-  status: "New" | "Completed";
-  createdAt: string;
-  lastUpdatedAt: string;
+  status?: "New" | "Completed";
+  createdAt?: string;
+  lastUpdatedAt?: string;
   completedAt: string;
   creator?: string;
 }
