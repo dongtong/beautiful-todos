@@ -1,8 +1,10 @@
-import { uuid } from "uuidv4";
 import dayjs from "dayjs";
+import prisma from "lib/prisma";
+import { IApiRes } from "interfaces/common";
+import { catchORMError } from "lib/common";
 
 class Todo {
-  readonly id: string;
+  id?: string;
   status: "New" | "Completed";
   createdAt: string;
   lastUpdatedAt: string;
@@ -12,7 +14,7 @@ class Todo {
   // likes DI(Dependency Injection)
   constructor(public title: string) {
     // uuid
-    this.id = uuid();
+    // this.id = uuid();
     this.status = "New";
     // format current datetime to string
     const currDateTime = dayjs().format("YYYY-MM-DD HH:mm:ss");
@@ -24,9 +26,33 @@ class Todo {
     this.creator = null;
   }
 
-  // Persist in database
-  save(): Todo {
-    return this;
+  // Persist it in database
+  async save(): Promise<IApiRes> {
+    try {
+      const { title, status, createdAt, lastUpdatedAt, completedAt, creator } =
+        this;
+      const newTodo: unknown = await prisma.todo.create({
+        data: {
+          title,
+          status,
+          createdAt,
+          lastUpdatedAt,
+          completedAt: completedAt!,
+          creator,
+        },
+      });
+
+      if (newTodo) {
+        return {
+          statusCode: "OK",
+          data: newTodo as Todo,
+        };
+      } else {
+        return catchORMError("Failed to create todo");
+      }
+    } catch (err) {
+      return catchORMError("Failed to create todo", err);
+    }
   }
 
   update(status: string) {}
