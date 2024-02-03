@@ -1,12 +1,12 @@
 /**
  * Define TODO interface
- * @param id: {string} primary key
- * @param title: {string} todo's title
- * @param status: {string} todo's status, enum value: New and Completed
- * @param createdAt: {string} todo's created timestamp
- * @param lastUpdatedAt: {string} todo's lastest updated timestamp
- * @param completedAt: {string} todo's completed timestamp
- * @param creator: {string}{optional} system could persist todo's creator name if necessary
+ * @field id: {string} primary key
+ * @field title: {string} todo's title
+ * @field status: {string} todo's status, enum value: New and Completed
+ * @field createdAt: {string} todo's created timestamp
+ * @field lastUpdatedAt: {string} todo's lastest updated timestamp
+ * @field completedAt: {string} todo's completed timestamp
+ * @field creator: {string}{optional} system could persist todo's creator name if necessary
  */
 export interface ITodo {
   id: string;
