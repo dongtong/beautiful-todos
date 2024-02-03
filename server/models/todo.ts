@@ -27,7 +27,10 @@ class Todo {
     this.creator = null;
   }
 
-  // Persist it in database
+  /**
+   * Save new todo item
+   * @returns {Promis<IApiRes>}
+   */
   async save(): Promise<IApiRes> {
     try {
       const { title, status, createdAt, lastUpdatedAt, completedAt, creator } =
@@ -56,6 +59,12 @@ class Todo {
     }
   }
 
+  /**
+   * Update todo item status
+   * @param id
+   * @param newStatus
+   * @returns {Promis<IApiRes>}
+   */
   public static async update(
     id: string,
     newStatus: TodoStatus
@@ -87,6 +96,11 @@ class Todo {
     }
   }
 
+  /**
+   * Find todo item by id
+   * @param id
+   * @returns {Promis<IApiRes>}
+   */
   public static async find(id: string): Promise<IApiRes> {
     try {
       const todo = await prisma.todo.findUnique({ where: { id } });
@@ -102,7 +116,11 @@ class Todo {
     }
   }
 
-  // TODO(depend on requirement): Add pagination, search or order
+  /**
+   * Get all todo items
+   * TODO(depend on requirement): Add pagination, search or order
+   * @returns {Promis<IApiRes>}
+   */
   public static async findAll(): Promise<IApiRes> {
     try {
       const todos = await prisma.todo.findMany();
@@ -119,6 +137,10 @@ class Todo {
     }
   }
 
+  /**
+   * Delete all completed todo items
+   * @returns {Promis<IApiRes>}
+   */
   public static clearCompleted() {}
 }
 

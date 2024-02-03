@@ -1,4 +1,6 @@
-// Error object used in error handling middleware function
+/**
+ * Custom API error class
+ */
 export class AppError extends Error {
   statusCode: number;
 
